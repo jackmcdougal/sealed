@@ -2,10 +2,11 @@ clickable_minimum_required: 8.0.0
 builder: cmake
 kill: qmlscene
 
-# Dependencies for Node.js in the build container
-dependencies_build:
-  - nodejs
-  - npm
+# Setup Node.js in the build container
+image_setup:
+  run:
+    - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+    - apt-get install -y nodejs
 
 libraries:
   bitwarden-cli:
