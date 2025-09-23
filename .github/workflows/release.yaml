@@ -28,7 +28,7 @@ jobs:
             --volume ./:/app \
             --workdir /app \
             clickable/ci-20.04-arm64:latest \
-            bash -c "git config --global --add safe.directory /app && git config --global --add safe.directory /app/bitwarden-cli && git submodule update --init --recursive"
+            bash -c "git config --global --add safe.directory '*' && git submodule update --init --recursive"
 
       - name: Build libraries
         run: |
