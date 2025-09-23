@@ -7,7 +7,7 @@ image_setup:
   run:
     - apt-get update
     - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-    - apt-get install -y nodejs npm
+    - apt-get install -y nodejs
 
 libraries:
   bitwarden-cli:
@@ -16,8 +16,9 @@ libraries:
     image_setup:
       run:
         - apt-get update
+        - apt-get install -y curl
         - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-        - apt-get install -y nodejs npm
+        - apt-get install -y --no-install-recommends nodejs
     build: |
       cd ${SRC_DIR}
       echo "=== Debug: Architecture and Node.js info ==="
