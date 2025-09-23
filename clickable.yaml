@@ -24,19 +24,24 @@ libraries:
       npm run sub:init  
       npm run build
       mkdir -p ${ROOT}/lib
+      # Copy the built CLI to the lib directory
+      cp -r build ${ROOT}/lib/bitwarden-cli-build
+      # Create wrapper script that works for all architectures
       cat > ${ROOT}/lib/bw << 'EOF'
       #!/bin/bash
       set -e
       SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-      CLI_DIR="$SCRIPT_DIR/bitwarden-cli"
+      CLI_BUILD="$SCRIPT_DIR/bitwarden-cli-build"
       if ! command -v node >/dev/null 2>&1; then
         echo "Error: Node.js is required but not found in PATH."
         exit 1
       fi
-      if [ ! -f "$CLI_DIR/build/bw.js" ]; then
-        echo "Error: Bitwarden CLI build not found at $CLI_DIR/build/bw.js"
+      if [ ! -f "$CLI_BUILD/bw.js" ]; then
+        echo "Error: Bitwarden CLI build not found at $CLI_BUILD/bw.js"
         exit 1
       fi
-      exec node "$CLI_DIR/build/bw.js" "$@"
+      exec node "$CLI_BUILD/bw.js" "$@"
       EOF
       chmod +x ${ROOT}/lib/bw
+      # Ensure Node.js modules are available
+      cp -r node_modules ${ROOT}/lib/ 2>/dev/null || true
