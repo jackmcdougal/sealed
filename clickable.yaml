@@ -5,22 +5,30 @@ kill: qmlscene
 # Setup Node.js in the build container
 image_setup:
   run:
+    - apt-get update
     - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
     - apt-get install -y nodejs
 
 libraries:
   bitwarden-cli:
     builder: custom
+    src_dir: bitwarden-cli
+    image_setup:
+      run:
+        - apt-get update
+        - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+        - apt-get install -y nodejs
     build: |
+      cd ${SRC_DIR}
       npm install
       npm run sub:init  
       npm run build
-      mkdir -p ../lib
-      cat > ../lib/bw << 'EOF'
+      mkdir -p ${ROOT}/lib
+      cat > ${ROOT}/lib/bw << 'EOF'
       #!/bin/bash
       set -e
       SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-      CLI_DIR="$SCRIPT_DIR/../libs/bitwarden-cli"
+      CLI_DIR="$SCRIPT_DIR/bitwarden-cli"
       if ! command -v node >/dev/null 2>&1; then
         echo "Error: Node.js is required but not found in PATH."
         exit 1
@@ -31,4 +39,4 @@ libraries:
       fi
       exec node "$CLI_DIR/build/bw.js" "$@"
       EOF
-      chmod +x ../lib/bw
+      chmod +x ${ROOT}/lib/bw
