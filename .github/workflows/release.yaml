@@ -22,7 +22,23 @@ jobs:
         run: |
           docker pull clickable/ci-20.04-arm64:latest
 
-      - name: Build application (including libraries)
+      - name: Initialize submodules
+        run: |
+          docker run --rm \
+            --volume ./:/app \
+            --workdir /app \
+            clickable/ci-20.04-arm64:latest \
+            bash -c "git submodule update --init --recursive"
+
+      - name: Build libraries
+        run: |
+          docker run --rm \
+            --volume ./:/app \
+            --workdir /app \
+            clickable/ci-20.04-arm64:latest \
+            bash -c "clickable build --libs --arch arm64"
+
+      - name: Build application
         run: |
           docker run --rm \
             --volume ./:/app \
