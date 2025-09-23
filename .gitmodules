@@ -1,0 +1,4 @@
+[submodule "bitwarden-cli"]
+	path = bitwarden-cli
+	url = https://github.com/bitwarden/cli.git
+	branch = master
