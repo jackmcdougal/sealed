@@ -7,7 +7,7 @@ image_setup:
   run:
     - apt-get update
     - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-    - apt-get install -y nodejs
+    - apt-get install -y nodejs npm
 
 libraries:
   bitwarden-cli:
@@ -17,12 +17,21 @@ libraries:
       run:
         - apt-get update
         - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-        - apt-get install -y nodejs
+        - apt-get install -y nodejs npm
     build: |
       cd ${SRC_DIR}
+      echo "=== Debug: Architecture and Node.js info ==="
+      uname -a
+      node --version || echo "Node.js not found"
+      npm --version || echo "npm not found"
+      echo "=== Installing dependencies ==="
       npm install
+      echo "=== Initializing submodules ==="
       npm run sub:init  
+      echo "=== Building CLI ==="
       npm run build
+      echo "=== Build completed, checking output ==="
+      ls -la build/
       mkdir -p ${ROOT}/lib
       # Copy the built CLI to the lib directory
       cp -r build ${ROOT}/lib/bitwarden-cli-build
@@ -43,5 +52,4 @@ libraries:
       exec node "$CLI_BUILD/bw.js" "$@"
       EOF
       chmod +x ${ROOT}/lib/bw
-      # Ensure Node.js modules are available
-      cp -r node_modules ${ROOT}/lib/ 2>/dev/null || true
+      echo "=== Build process completed ==="
