@@ -1,0 +1,31 @@
+name: Publish Sealed
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Pull Clickable
+        run: |
+          docker pull clickable/ci-20.04-arm64:latest
+
+      - name: Download and setup bw
+        run: |
+          mkdir -p lib
+          curl -L -o lib/bw https://f005.backblazeb2.com/file/sealed-bitwarden-cli/bw
+          chmod +x lib/bw
+
+      - name: Build
+        run: |
+          docker run --volume ./:/app clickable/ci-20.04-arm64:latest bash -c "cd /app && clickable build --arch arm64"
+
+      - name: Deploy
+        run: |
+          docker run --env OPENSTORE_API_KEY="${{ secrets.OPENSTORE_API_KEY }}" --volume ./:/app clickable/ci-20.04-arm64:latest bash -c "cd /app && clickable publish --arch arm64 -- '${{ github.event.head_commit.message }}'"

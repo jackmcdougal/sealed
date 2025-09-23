@@ -1,0 +1,15 @@
+{
+    "name": "sealed.brennoflavio",
+    "description": "A Bitwarden Password Manager Client for Ubuntu Touch",
+    "architecture": "arm64",
+    "title": "Sealed",
+    "hooks": {
+        "sealed": {
+            "apparmor": "sealed.apparmor",
+            "desktop":  "sealed.desktop"
+        }
+    },
+    "version": "@BUILD_VERSION@",
+    "maintainer": "Brenno Flávio de Almeida <contato@brennoflavio.com.br>",
+    "framework" : "@CLICK_FRAMEWORK@"
+}
