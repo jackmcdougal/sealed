@@ -16,17 +16,17 @@ libraries:
       - npm run sub:init  
       - npm run build
       - mkdir -p ../lib
-      - echo '#!/bin/bash' > ../lib/bw
-      - echo 'set -e' >> ../lib/bw
-      - echo 'SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"' >> ../lib/bw
-      - echo 'CLI_DIR="$SCRIPT_DIR/../libs/bitwarden-cli"' >> ../lib/bw
-      - echo 'if ! command -v node >/dev/null 2>&1; then' >> ../lib/bw
-      - echo '  echo "Error: Node.js is required but not found in PATH."' >> ../lib/bw
-      - echo '  exit 1' >> ../lib/bw
-      - echo 'fi' >> ../lib/bw
-      - echo 'if [ ! -f "$CLI_DIR/build/bw.js" ]; then' >> ../lib/bw
-      - echo '  echo "Error: Bitwarden CLI build not found at $CLI_DIR/build/bw.js"' >> ../lib/bw
-      - echo '  exit 1' >> ../lib/bw
-      - echo 'fi' >> ../lib/bw
-      - echo 'exec node "$CLI_DIR/build/bw.js" "$@"' >> ../lib/bw
+      - "echo '#!/bin/bash' > ../lib/bw"
+      - "echo 'set -e' >> ../lib/bw"
+      - "echo 'SCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"' >> ../lib/bw"
+      - "echo 'CLI_DIR=\"$SCRIPT_DIR/../libs/bitwarden-cli\"' >> ../lib/bw"
+      - "echo 'if ! command -v node >/dev/null 2>&1; then' >> ../lib/bw"
+      - "echo '  echo \"Error: Node.js is required but not found in PATH.\"' >> ../lib/bw"
+      - "echo '  exit 1' >> ../lib/bw"
+      - "echo 'fi' >> ../lib/bw"
+      - "echo 'if [ ! -f \"$CLI_DIR/build/bw.js\" ]; then' >> ../lib/bw"
+      - "echo '  echo \"Error: Bitwarden CLI build not found at $CLI_DIR/build/bw.js\"' >> ../lib/bw"
+      - "echo '  exit 1' >> ../lib/bw"
+      - "echo 'fi' >> ../lib/bw"
+      - "echo 'exec node \"$CLI_DIR/build/bw.js\" \"$@\"' >> ../lib/bw"
       - chmod +x ../lib/bw
