@@ -4,6 +4,10 @@
 
 A Bitwarden Password Manager Client for Ubuntu Touch
 
+## Security
+
+CICD is implemented using Clickable, to build bw cli as a git submodule and avoid downloading it from unknown sources. 
+
 ## Development
 
 To run this App, you'll need a copy of Bitwarden CLI (arm build).
