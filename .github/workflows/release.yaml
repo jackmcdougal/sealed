@@ -22,15 +22,7 @@ jobs:
         run: |
           docker pull clickable/ci-20.04-arm64:latest
 
-      - name: Build libraries (including Bitwarden CLI)
-        run: |
-          docker run --rm \
-            --volume ./:/app \
-            --workdir /app \
-            clickable/ci-20.04-arm64:latest \
-            bash -c "clickable build-libs --arch arm64"
-
-      - name: Build application
+      - name: Build application (including libraries)
         run: |
           docker run --rm \
             --volume ./:/app \
