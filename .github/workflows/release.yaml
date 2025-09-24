@@ -46,11 +46,3 @@ jobs:
             clickable/ci-20.04-arm64:latest \
             bash -c "clickable build --arch arm64 --skip-review"
 
-      - name: Deploy to OpenStore
-        run: |
-          docker run --rm \
-            --env OPENSTORE_API_KEY="${{ secrets.OPENSTORE_API_KEY }}" \
-            --volume ./:/app \
-            --workdir /app \
-            clickable/ci-20.04-arm64:latest \
-            bash -c "clickable publish --arch arm64 -- '${{ github.event.head_commit.message }}'"
