@@ -1,7 +1,6 @@
 clickable_minimum_required: 8.0.0
 builder: cmake
 kill: qmlscene
-review: false
 
 # Setup Node.js in the build container
 image_setup:

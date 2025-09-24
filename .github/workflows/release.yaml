@@ -44,7 +44,7 @@ jobs:
             --volume ./:/app \
             --workdir /app \
             clickable/ci-20.04-arm64:latest \
-            bash -c "clickable build --arch arm64"
+            bash -c "clickable build --arch arm64 --no-review"
 
       - name: Deploy to OpenStore
         run: |
