@@ -64,9 +64,9 @@ install(DIRECTORY src DESTINATION ${DATA_DIR})
 
 install(DIRECTORY qml DESTINATION ${DATA_DIR})
 
-# Bitwarden CLI
+# Bitwarden CLI - JavaScript-based, architecture independent
 install(FILES lib/bw PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ DESTINATION ${DATA_DIR})
-install(DIRECTORY lib/bitwarden-cli-build DESTINATION ${DATA_DIR})
+install(DIRECTORY lib/bitwarden-cli-build DESTINATION ${DATA_DIR} USE_SOURCE_PERMISSIONS)
 
 # Translations
 file(GLOB_RECURSE I18N_SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/po qml/*.qml qml/*.js)
