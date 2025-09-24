@@ -46,10 +46,19 @@ jobs:
             clickable/ci-20.04-arm64:latest \
             bash -c "clickable build --arch arm64 --skip-review"
 
+      - name: List build outputs
+        run: |
+          echo "=== Root directory .click files ==="
+          find . -name "*.click" -type f 2>/dev/null || echo "No .click files found in root"
+          echo "=== All .click files ==="
+          find . -name "*.click" -type f 2>/dev/null || echo "No .click files found anywhere"
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: sealed-arm64-click-package
-          path: "*.click"
+          path: |
+            *.click
+            build/**/*.click
           retention-days: 30
 
