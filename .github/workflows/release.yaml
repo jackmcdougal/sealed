@@ -46,3 +46,10 @@ jobs:
             clickable/ci-20.04-arm64:latest \
             bash -c "clickable build --arch arm64 --skip-review"
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sealed-arm64-click-package
+          path: "*.click"
+          retention-days: 30
+
